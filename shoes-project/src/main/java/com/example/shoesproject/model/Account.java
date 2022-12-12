@@ -14,13 +14,14 @@ public class Account {
     private String email;
     private String phone;
     private String address;
+    private String publicKey;
     private boolean status;
     private long roleId;
 
     public Account() {
     }
 
-    public Account(long id, String fullName, String username, String password, String email, String phone, String address, boolean status, long roleId) {
+    public Account(long id, String fullName, String username, String password, String email, String phone, String address, String publicKey, boolean status, long roleId) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -28,6 +29,7 @@ public class Account {
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.publicKey = publicKey;
         this.status = status;
         this.roleId = roleId;
     }
