@@ -1,3 +1,5 @@
+<%@ page import="com.example.shoesproject.model.Account" %>
+<%@ page import="com.example.shoesproject.util.SessionUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
@@ -18,33 +20,23 @@
             <div class="tm-dropdown tm-header-links">
               <button>My Account</button>
               <ul>
-                <li><a href="my-account.html">My Account</a></li>
-                <li><a href="login-register.html">Login/Register</a></li>
+                <li><a href="/profile">My Account</a></li>
+                 <%
+                    if (session.getAttribute("account") == null) {
+                 %>
+                    <li><a href="login.jsp">Login / Register</a></li>
+                <%
+                  }
+                %>
                 <li><a href="cart.html">Shopping Cart</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
-              </ul>
-            </div>
-            <div class="tm-dropdown tm-header-currency">
-              <button>USD</button>
-              <ul>
-                <li><a href="#">USD</a></li>
-                <li><a href="#">EUR</a></li>
-                <li><a href="#">JPY</a></li>
-                <li><a href="#">GBP</a></li>
-              </ul>
-            </div>
-            <div class="tm-dropdown tm-header-language">
-              <button><img src="resources/assets/images/flag-english.png" alt="language">English</button>
-              <ul>
-                <li><a href="#"><img src="resources/assets/images/flag-english.png"
-                                     alt="language">English</a></li>
-                <li><a href="#"><img src="resources/assets/images/flag-spain.png"
-                                     alt="language">Spanish</a></li>
-                <li><a href="#"><img src="resources/assets/images/flag-russian.png"
-                                     alt="language">Russian</a></li>
-                <li><a href="#"><img src="resources/assets/images/flag-french.png"
-                                     alt="language">French</a></li>
+                <%
+                  if (session.getAttribute("account") != null) {
+                %>
+                <li><a href="login?command=logout">Logout</a></li>
+                <%
+                  }
+                %>
               </ul>
             </div>
           </div>
@@ -61,7 +53,7 @@
       <div class="row align-items-center">
         <div class="col-lg-3 col-6 order-1 order-lg-1">
           <a href="index.html" class="tm-header-logo">
-            <img src="resources/resources/assets/images/logo.png" alt="surose">
+            <img src="resources/assets/images/logo.png" alt="surose">
           </a>
         </div>
         <div class="col-lg-6 col-12 order-3 order-lg-2">
