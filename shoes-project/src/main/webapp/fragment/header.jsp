@@ -1,3 +1,5 @@
+<%@ page import="com.example.shoesproject.model.Account" %>
+<%@ page import="com.example.shoesproject.util.SessionUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
@@ -18,12 +20,23 @@
             <div class="tm-dropdown tm-header-links">
               <button>My Account</button>
               <ul>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                 <li><a href="my-account.html">My Account</a></li>
                 <li><a href="login-register.html">Login/Register</a></li>
+=======
+                <li><a href="/profile">My Account</a></li>
+                 <%
+                    if (session.getAttribute("account") == null) {
+                 %>
+                    <li><a href="login.jsp">Login / Register</a></li>
+                <%
+                  }
+                %>
+>>>>>>> master
                 <li><a href="cart.html">Shopping Cart</a></li>
-                <li><a href="wishlist.html">Wishlist</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
+<<<<<<< HEAD
               </ul>
             </div>
             <div class="tm-dropdown tm-header-currency">
@@ -57,6 +70,8 @@
                 %>
                 <li><a href="/order">Shopping Cart</a></li>
                 <li><a href="/checkout">Checkout</a></li>
+=======
+>>>>>>> master
                 <%
                   if (session.getAttribute("account") != null) {
                 %>
@@ -64,7 +79,10 @@
                 <%
                   }
                 %>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> master
               </ul>
             </div>
           </div>
@@ -81,7 +99,7 @@
       <div class="row align-items-center">
         <div class="col-lg-3 col-6 order-1 order-lg-1">
           <a href="index.html" class="tm-header-logo">
-            <img src="resources/resources/assets/images/logo.png" alt="surose">
+            <img src="resources/assets/images/logo.png" alt="surose">
           </a>
         </div>
         <div class="col-lg-6 col-12 order-3 order-lg-2">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 <%@ page import="com.example.shoesproject.model.Account" %>
@@ -7,6 +8,9 @@
 <%@ page import="java.util.TreeMap" %>
 <jsp:include page="fragment/taglib.jsp" />
 >>>>>>> Stashed changes
+=======
+<jsp:include page="fragment/taglib.jsp" />
+>>>>>>> master
 <!DOCTYPE html>
 <html lang="zxx">
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 <%@ page import="com.example.shoesproject.model.Cart" %>
@@ -7,6 +8,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="fragment/taglib.jsp"/>
 >>>>>>> Stashed changes
+=======
+<jsp:include page="fragment/taglib.jsp" />
+>>>>>>> master
 <!DOCTYPE html>
 <html lang="zxx">
 

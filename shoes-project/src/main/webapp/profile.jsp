@@ -1,10 +1,11 @@
+<%@ page import="com.example.shoesproject.model.Account" %>
+<jsp:include page="fragment/taglib.jsp" />
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Surose - Jewelry eCommerce HTML Template</title>
+    <title>Profile</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" href="resources/assets/images/favicon.png">
@@ -25,26 +26,10 @@
 </head>
 
 <body>
-
-<!-- Preloader -->
-<div class="tm-preloader">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="tm-preloader-logo">
-                    <img src="resources/assets/images/logo.png" alt="logo">
-                </div>
-                <span class="tm-preloader-progress"></span>
-            </div>
-        </div>
-    </div>
-    <button class="tm-button tm-button-small">Cancel Preloader</button>
-</div>
-<!--// Preloader -->
-
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     <%
@@ -56,6 +41,12 @@
     %>
 
 >>>>>>> Stashed changes
+=======
+    <%
+        Account account = (Account) session.getAttribute("account");
+    %>
+
+>>>>>>> master
     <!-- Header -->
     <jsp:include page="fragment/header.jsp" />
     <!--// Header -->
@@ -64,10 +55,10 @@
     <div class="tm-breadcrumb-area tm-padding-section bg-grey" data-bgimage="resources/assets/images/breadcrumb-bg.jpg">
         <div class="container">
             <div class="tm-breadcrumb">
-                <h2>Portfolios</h2>
+                <h2>My Account</h2>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li>Portfolios</li>
+                    <li><a href="/home">Home</a></li>
+                    <li>My Account</li>
                 </ul>
             </div>
         </div>
@@ -77,18 +68,54 @@
     <!-- Page Content -->
     <main class="page-content">
 
-        <!-- Portfolios Area -->
-        <div class="tm-section tm-portfolios-area tm-padding-section bg-white">
+        <!-- My Account Area -->
+        <div class="tm-section tm-my-account-area bg-white tm-padding-section">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="tm-portfolio-filters text-center">
-                            <button data-filter="*" class="is-active">All</button>
-                            <button data-filter=".portfolio-cat-jewellery">Jewellery</button>
-                            <button data-filter=".portfolio-cat-earrings">Earrings</button>
-                            <button data-filter=".portfolio-cat-nacklace">Nacklace</button>
-                            <button data-filter=".portfolio-cat-bracelet">Bracelet</button>
+                <div class="tm-myaccount">
+                    <ul class="nav tm-tabgroup" id="account" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="account-dashboard-tab" data-toggle="tab"
+                               href="#account-dashboard" role="tab" aria-controls="account-dashboard"
+                               aria-selected="true">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-orders-tab" data-toggle="tab" href="#account-orders"
+                               role="tab" aria-controls="account-orders" aria-selected="false">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-address-tab" data-toggle="tab" href="#account-address"
+                               role="tab" aria-controls="account-address" aria-selected="false">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-acdetails-tab" data-toggle="tab"
+                               href="#account-acdetails" role="tab" aria-controls="account-acdetails"
+                               aria-selected="false">Account Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-logout-tab" href="login?command=logout" role="tab"
+                               aria-controls="account-address" aria-selected="false">Logout</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="account-ontent">
+                        <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
+                             aria-labelledby="account-dashboard-tab">
+                            <div class="tm-myaccount-dashboard">
+                                <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
+                                        href="login?command=logout">Log
+                                    out</a>)</p>
+                                <p>From your account dashboard you can view your recent orders, manage your
+                                    shipping and billing addresses, and edit your password and account details.</p>
+                                <%
+                                    if (account.getPublicKey().equals("")) {
+                                %>
+                                     <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                <%
+                                    }
+                                %>
+                            </div>
                         </div>
+<<<<<<< HEAD
                     </div>
                 </div>
                 <div class="row tm-portfolio-wrapper mt-30-reverse">
@@ -205,6 +232,8 @@
                                 %>
                             </div>
                         </div>
+=======
+>>>>>>> master
                         <div class="tab-pane fade" id="account-orders" role="tabpanel"
                              aria-labelledby="account-orders-tab">
                             <div class="tm-myaccount-orders">
@@ -285,14 +314,22 @@
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-phone">Phone</label>
                                             <%
+<<<<<<< HEAD
                                                 if (account.getPhone() == null) {
+=======
+                                                if (account.getAddress() == null) {
+>>>>>>> master
                                             %>
                                             <input type="text" id="acdetails-phone" value="">
                                             <%
                                                 }
                                             %>
                                             <%
+<<<<<<< HEAD
                                                 if (account.getPhone() != null) {
+=======
+                                                if (account.getAddress() != null) {
+>>>>>>> master
                                             %>
                                             <input type="text" id="acdetails-phone" value="<%=account.getPhone()%>">
                                             <%
@@ -322,13 +359,16 @@
                                     </div>
                                 </form>
                             </div>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> master
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--// Portfolios Area -->
+        <!--// My Account Area -->
 
     </main>
     <!--// Page Content -->
