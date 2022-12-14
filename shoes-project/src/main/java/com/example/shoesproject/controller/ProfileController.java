@@ -5,7 +5,6 @@ import com.example.shoesproject.service.AccountService;
 import com.example.shoesproject.service.impl.AccountServiceImpl;
 import com.example.shoesproject.util.SignatureUser;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,9 +39,9 @@ public class ProfileController extends HttpServlet {
                 response.setContentType("APPLICATION/OCTET-STREAM");
                 response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+"\"");
 
-                FileInputStream inputStream = new FileInputStream(path);
+//                FileInputStream inputStream = new FileInputStream(path);
                 out.write(account.getPublicKey());
-                inputStream.close();
+//                inputStream.close();
                 out.close();
             }
             request.getRequestDispatcher("profile.jsp").forward(request, response);

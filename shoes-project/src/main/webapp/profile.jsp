@@ -45,6 +45,17 @@
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
 
+<<<<<<< Updated upstream
+=======
+    <%
+        Account account = (Account) session.getAttribute("account");
+        String address_err = "";
+        if (session.getAttribute("address_err") != null) {
+            address_err = session.getAttribute("address_err").toString();
+        }
+    %>
+
+>>>>>>> Stashed changes
     <!-- Header -->
     <jsp:include page="fragment/header.jsp" />
     <!--// Header -->
@@ -82,6 +93,7 @@
                 </div>
                 <div class="row tm-portfolio-wrapper mt-30-reverse">
 
+<<<<<<< Updated upstream
                     <!-- Single Portfolio -->
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery mt-30">
                         <a href="resources/assets/images/portfolios/portfolio-image-1-lg.jpg" class="tm-portfolio"
@@ -173,6 +185,144 @@
                     <div class="col-12">
                         <div class="tm-portfolio-loadmore text-center mt-50">
                             <button class="tm-button">Load more</button>
+=======
+                    <div class="tab-content" id="account-ontent">
+                        <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
+                             aria-labelledby="account-dashboard-tab">
+                            <div class="tm-myaccount-dashboard">
+                                <p class="text-danger"><%=address_err%></p>
+                                <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
+                                        href="login?command=logout">Log
+                                    out</a>)</p>
+                                <p>From your account dashboard you can view your recent orders, manage your
+                                    shipping and billing addresses, and edit your password and account details.</p>
+                                <%
+                                    if (account.getPublicKey().equals("")) {
+                                %>
+                                     <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                <%
+                                    }
+                                %>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-orders" role="tabpanel"
+                             aria-labelledby="account-orders-tab">
+                            <div class="tm-myaccount-orders">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th class="tm-myaccount-orders-col-id">ORDER ID</th>
+                                            <th class="tm-myaccount-orders-col-date">DATE</th>
+                                            <th class="tm-myaccount-orders-col-status">STATUS</th>
+                                            <th class="tm-myaccount-orders-col-total">TOTAL</th>
+                                            <th class="tm-myaccount-orders-col-view">VIEW</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>#12345</td>
+                                            <td>30 December 2018</td>
+                                            <td>On Hold</td>
+                                            <td>$132.00 for 2 items</td>
+                                            <td><a href="#" class="tm-button tm-button-small">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#12346</td>
+                                            <td>30 December 2018</td>
+                                            <td>On Hold</td>
+                                            <td>$220.00 for 3 items</td>
+                                            <td><a href="#" class="tm-button tm-button-small">View</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-address" role="tabpanel"
+                             aria-labelledby="account-address-tab">
+                            <div class="tm-myaccount-address">
+                                <div class="row">
+                                    <form action="changePassword" class="tm-form tm-form-bordered" method="POST">
+                                        <h4>Change Password</h4>
+                                        <div class="tm-form-inner">
+                                            <div class="tm-form-field">
+                                                <label for="acdetails-password">Old password</label>
+                                                <input type="password" id="acdetails-password">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <label for="acdetails-newpassword">New password</label>
+                                                <input type="password" id="acdetails-newpassword">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <label for="acdetails-confirmpass">Confirm password</label>
+                                                <input type="password" id="acdetails-confirmpass">
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <button type="submit" class="tm-button">Save Changes</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="account-acdetails" role="tabpanel"
+                             aria-labelledby="account-acdetails-tab">
+                            <div class="tm-myaccount-acdetails">
+                                <form action="changeProfile" class="tm-form tm-form-bordered" method="POST">
+                                    <h4>Account Details</h4>
+                                    <div class="tm-form-inner">
+                                        <div class="tm-form-field tm-form-fieldhalf">
+                                            <label for="acdetails-firstname">Full Name</label>
+                                            <input type="text" id="acdetails-firstname" value="<%=account.getFullName()%>">
+                                        </div>
+                                        <div class="tm-form-field tm-form-fieldhalf">
+                                            <label for="acdetails-email">Email</label>
+                                            <input type="email" id="acdetails-email" value="<%=account.getEmail()%>">
+                                        </div>
+                                        <div class="tm-form-field tm-form-fieldhalf">
+                                            <label for="acdetails-phone">Phone</label>
+                                            <%
+                                                if (account.getPhone() == null) {
+                                            %>
+                                            <input type="text" id="acdetails-phone" value="">
+                                            <%
+                                                }
+                                            %>
+                                            <%
+                                                if (account.getPhone() != null) {
+                                            %>
+                                            <input type="text" id="acdetails-phone" value="<%=account.getPhone()%>">
+                                            <%
+                                                }
+                                            %>
+                                        </div>
+                                        <div class="tm-form-field tm-form-fieldhalf">
+                                            <label for="acdetails-address">Address</label>
+                                            <%
+                                                if (account.getAddress() == null) {
+                                            %>
+                                            <input type="text" id="acdetails-address" value="">
+                                            <%
+                                                }
+                                            %>
+                                            <%
+                                                if (account.getAddress() != null) {
+                                            %>
+                                            <input type="text" id="acdetails-address" value="<%=account.getPhone()%>">
+                                            <%
+                                                }
+                                            %>
+                                        </div>
+                                        <div class="tm-form-field">
+                                            <button type="submit" class="tm-button">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@
             <div class="tm-dropdown tm-header-links">
               <button>My Account</button>
               <ul>
+<<<<<<< Updated upstream
                 <li><a href="my-account.html">My Account</a></li>
                 <li><a href="login-register.html">Login/Register</a></li>
                 <li><a href="cart.html">Shopping Cart</a></li>
@@ -45,6 +46,25 @@
                                      alt="language">Russian</a></li>
                 <li><a href="#"><img src="resources/assets/images/flag-french.png"
                                      alt="language">French</a></li>
+=======
+                <li><a href="/profile">My Account</a></li>
+                 <%
+                    if (session.getAttribute("account") == null) {
+                 %>
+                    <li><a href="login.jsp">Login / Register</a></li>
+                <%
+                  }
+                %>
+                <li><a href="/order">Shopping Cart</a></li>
+                <li><a href="/checkout">Checkout</a></li>
+                <%
+                  if (session.getAttribute("account") != null) {
+                %>
+                <li><a href="login?command=logout">Logout</a></li>
+                <%
+                  }
+                %>
+>>>>>>> Stashed changes
               </ul>
             </div>
           </div>
@@ -72,8 +92,20 @@
         </div>
         <div class="col-lg-3 col-6 order-2 order-lg-3">
           <ul class="tm-header-icons">
-            <li><a href="wishlist.html"><i class="ion-android-favorite-outline"></i><span>0</span></a></li>
-            <li><a href="cart.html"><i class="ion-bag"></i><span>0</span></a></li>
+            <%
+              if (session.getAttribute("totalProduct") == null) {
+            %>
+            <li><a href="order"><i class="ion-bag"></i><span>0</span></a></li>
+            <%
+              }
+            %>
+            <%
+              if (session.getAttribute("totalProduct") != null) {
+            %>
+            <li><a href="order"><i class="ion-bag"></i><span><%=session.getAttribute("totalProduct")%></span></a></li>
+            <%
+              }
+            %>
           </ul>
         </div>
       </div>
