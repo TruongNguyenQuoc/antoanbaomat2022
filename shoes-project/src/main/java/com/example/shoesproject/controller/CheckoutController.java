@@ -55,11 +55,11 @@ public class CheckoutController extends HttpServlet {
 
         if (account == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if(account.getAddress() == null) {
-            session.setAttribute("address_err", "Please check your detail account");
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
         } else {
-            if (signatureUser.checkPrivateKey(partUpload, pathUpload, account.getPublicKey())) {
+            if(account.getAddress() == null || account.getPhone() == null || account.getPublicKey().equals("")) {
+                session.setAttribute("address_err", "Please check your detail account or create public / private key");
+                request.getRequestDispatcher("profile.jsp").forward(request, response);
+            } else if (signatureUser.checkPrivateKey(partUpload, pathUpload, account.getPublicKey())) {
                 try {
                     Cart cart = (Cart) session.getAttribute("cart");
                     Date date = new Date();

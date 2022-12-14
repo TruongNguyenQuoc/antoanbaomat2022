@@ -28,10 +28,6 @@
 <body>
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
-
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     <%
         Account account = (Account) session.getAttribute("account");
         String address_err = "";
@@ -39,14 +35,6 @@
             address_err = session.getAttribute("address_err").toString();
         }
     %>
-
->>>>>>> Stashed changes
-=======
-    <%
-        Account account = (Account) session.getAttribute("account");
-    %>
-
->>>>>>> master
     <!-- Header -->
     <jsp:include page="fragment/header.jsp" />
     <!--// Header -->
@@ -101,122 +89,6 @@
                         <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                              aria-labelledby="account-dashboard-tab">
                             <div class="tm-myaccount-dashboard">
-                                <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
-                                        href="login?command=logout">Log
-                                    out</a>)</p>
-                                <p>From your account dashboard you can view your recent orders, manage your
-                                    shipping and billing addresses, and edit your password and account details.</p>
-                                <%
-                                    if (account.getPublicKey().equals("")) {
-                                %>
-                                     <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
-                                <%
-                                    }
-                                %>
-                            </div>
-                        </div>
-<<<<<<< HEAD
-                    </div>
-                </div>
-                <div class="row tm-portfolio-wrapper mt-30-reverse">
-
-<<<<<<< Updated upstream
-                    <!-- Single Portfolio -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-1-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-1.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div
-                            class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-earrings portfolio-cat-nacklace mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-2-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-2.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-3-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-3.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div
-                            class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery portfolio-cat-nacklace mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-4-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-4.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div
-                            class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-earrings portfolio-cat-bracelet mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-6-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-6.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-5-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-5.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div
-                            class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-nacklace portfolio-cat-bracelet mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-8-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-8.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-jewellery mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-7-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-7.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                    <!-- Single Portfolio -->
-                    <div
-                            class="col-lg-4 col-md-6 col-sm-6 col-12 tm-portfolio-item portfolio-cat-earrings portfolio-cat-bracelet mt-30">
-                        <a href="resources/assets/images/portfolios/portfolio-image-9-lg.jpg" class="tm-portfolio"
-                           data-fancybox="portfolio-gallery" data-caption="Self makeup at home">
-                            <img src="resources/assets/images/portfolios/portfolio-image-9.jpg" alt="portfolio image">
-                        </a>
-                    </div>
-                    <!--// Single Portfolio -->
-
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="tm-portfolio-loadmore text-center mt-50">
-                            <button class="tm-button">Load more</button>
-=======
-                    <div class="tab-content" id="account-ontent">
-                        <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
-                             aria-labelledby="account-dashboard-tab">
-                            <div class="tm-myaccount-dashboard">
                                 <p class="text-danger"><%=address_err%></p>
                                 <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
                                         href="login?command=logout">Log
@@ -226,14 +98,12 @@
                                 <%
                                     if (account.getPublicKey().equals("")) {
                                 %>
-                                     <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
                                 <%
                                     }
                                 %>
                             </div>
                         </div>
-=======
->>>>>>> master
                         <div class="tab-pane fade" id="account-orders" role="tabpanel"
                              aria-labelledby="account-orders-tab">
                             <div class="tm-myaccount-orders">
@@ -314,22 +184,14 @@
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-phone">Phone</label>
                                             <%
-<<<<<<< HEAD
                                                 if (account.getPhone() == null) {
-=======
-                                                if (account.getAddress() == null) {
->>>>>>> master
                                             %>
                                             <input type="text" id="acdetails-phone" value="">
                                             <%
                                                 }
                                             %>
                                             <%
-<<<<<<< HEAD
                                                 if (account.getPhone() != null) {
-=======
-                                                if (account.getAddress() != null) {
->>>>>>> master
                                             %>
                                             <input type="text" id="acdetails-phone" value="<%=account.getPhone()%>">
                                             <%
@@ -359,10 +221,6 @@
                                     </div>
                                 </form>
                             </div>
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> master
                         </div>
                     </div>
                 </div>

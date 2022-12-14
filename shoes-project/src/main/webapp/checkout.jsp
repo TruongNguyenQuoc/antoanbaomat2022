@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 <%@ page import="com.example.shoesproject.model.Account" %>
 <%@ page import="com.example.shoesproject.model.Cart" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.example.shoesproject.model.Product" %>
 <%@ page import="java.util.TreeMap" %>
 <jsp:include page="fragment/taglib.jsp" />
->>>>>>> Stashed changes
-=======
-<jsp:include page="fragment/taglib.jsp" />
->>>>>>> master
 <!DOCTYPE html>
 <html lang="zxx">
 
