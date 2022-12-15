@@ -28,11 +28,13 @@
 <body>
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
-
     <%
         Account account = (Account) session.getAttribute("account");
+        String address_err = "";
+        if (session.getAttribute("address_err") != null) {
+            address_err = session.getAttribute("address_err").toString();
+        }
     %>
-
     <!-- Header -->
     <jsp:include page="fragment/header.jsp" />
     <!--// Header -->
@@ -87,6 +89,7 @@
                         <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                              aria-labelledby="account-dashboard-tab">
                             <div class="tm-myaccount-dashboard">
+                                <p class="text-danger"><%=address_err%></p>
                                 <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
                                         href="login?command=logout">Log
                                     out</a>)</p>
@@ -95,7 +98,7 @@
                                 <%
                                     if (account.getPublicKey().equals("")) {
                                 %>
-                                     <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
                                 <%
                                     }
                                 %>
@@ -181,14 +184,14 @@
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-phone">Phone</label>
                                             <%
-                                                if (account.getAddress() == null) {
+                                                if (account.getPhone() == null) {
                                             %>
                                             <input type="text" id="acdetails-phone" value="">
                                             <%
                                                 }
                                             %>
                                             <%
-                                                if (account.getAddress() != null) {
+                                                if (account.getPhone() != null) {
                                             %>
                                             <input type="text" id="acdetails-phone" value="<%=account.getPhone()%>">
                                             <%

@@ -1,11 +1,16 @@
-<jsp:include page="fragment/taglib.jsp" />
+<%@ page import="com.example.shoesproject.model.Cart" %>
+<%@ page import="com.example.shoesproject.model.Product" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page import="java.util.Map" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="fragment/taglib.jsp"/>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Surose - Jewelry eCommerce HTML Template</title>
+    <title>Order</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" href="resources/assets/images/favicon.png">
@@ -26,28 +31,22 @@
 </head>
 
 <body>
-
-<!-- Preloader -->
-<div class="tm-preloader">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="tm-preloader-logo">
-                    <img src="resources/assets/images/logo.png" alt="logo">
-                </div>
-                <span class="tm-preloader-progress"></span>
-            </div>
-        </div>
-    </div>
-    <button class="tm-button tm-button-small">Cancel Preloader</button>
-</div>
-<!--// Preloader -->
-
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
 
+    <%
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
+
+        TreeMap<Product, Integer> list = cart.getList();
+    %>
+
     <!-- Header -->
-    <jsp:include page="fragment/header.jsp" />
+    <jsp:include page="fragment/header.jsp"/>
     <!--// Header -->
 
     <!-- Breadcrumb Area -->
@@ -71,7 +70,6 @@
         <!-- Shopping Cart Area -->
         <div class="tm-section shopping-cart-area bg-white tm-padding-section">
             <div class="container">
-
                 <!-- Shopping Cart Table -->
                 <div class="tm-cart-table table-responsive">
                     <table class="table table-bordered mb-0">
@@ -86,69 +84,66 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <a href="product-details.html" class="tm-cart-productimage">
-                                    <img src="resources/assets/images/products/product-image-1-thumb.jpg"
-                                         alt="product image">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="product-details.html" class="tm-cart-productname">Stylist
-                                    daimond
-                                    earring</a>
-                            </td>
-                            <td class="tm-cart-price">$75.00</td>
-                            <td>
-                                <div class="tm-quantitybox">
-                                    <input type="text" value="1">
-                                </div>
-                            </td>
-                            <td>
-                                <span class="tm-cart-totalprice">$75.00</span>
-                            </td>
-                            <td>
-                                <button class="tm-cart-removeproduct"><i class="ion-close"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="product-details.html" class="tm-cart-productimage">
-                                    <img src="resources/assets/images/products/product-image-2-thumb.jpg"
-                                         alt="product image">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="product-details.html" class="tm-cart-productname">Stylist
-                                    daimond
-                                    earring</a>
-                            </td>
-                            <td class="tm-cart-price">$75.00</td>
-                            <td>
-                                <div class="tm-quantitybox">
-                                    <input type="text" value="1">
-                                </div>
-                            </td>
-                            <td>
-                                <span class="tm-cart-totalprice">$75.00</span>
-                            </td>
-                            <td>
-                                <button class="tm-cart-removeproduct"><i class="ion-close"></i></button>
-                            </td>
-                        </tr>
+                        <%
+                            if (session.getAttribute("totalCost") != null) {
+                        %>
+                            <%
+                                for (Map.Entry<Product, Integer> ds : list.entrySet()) {
+                            %>
+                            <tr>
+                                <td>
+                                    <a href="detail?productId=?<%=ds.getKey().getId()%>" class="tm-cart-productimage">
+                                        <img src="resources/assets/images/products/product-image-1-thumb.jpg"
+                                             alt="product image">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="detail?productId=?<%=ds.getKey().getId()%>" class="tm-cart-productname">
+                                        <%=ds.getKey().getName()%>
+                                    </a>
+                                </td>
+                                <td class="tm-cart-price"><%=ds.getKey().getPrice()%>
+                                </td>
+                                <td>
+                                    <div style="position: relative; display: inline-block; width: 80px;">
+                                        <input type="text" value="<%=ds.getValue()%>">
+                                        <a class="decrement-button tm-quantitybox-button"
+                                           href="cart?command=sub&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}">-</a>
+                                        <a class="increment-button tm-quantitybox-button"
+                                           href="cart?command=plus&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}">+</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="tm-cart-totalprice"><%=ds.getKey().getPrice() * ds.getValue()%></span>
+                                </td>
+                                <td>
+                                    <a href="cart?command=remove&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}" class="tm-cart-removeproduct"><i class="ion-close"></i></a>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        <%
+                            }
+                        %>
                         </tbody>
                     </table>
+                    <%
+                        if (session.getAttribute("totalCost") == null) {
+                    %>
+                        <h3 class="text-danger pt-3">No product in cart</h3>
+                    <%
+                        }
+                    %>
                 </div>
                 <!--// Shopping Cart Table -->
-
                 <!-- Shopping Cart Content -->
+                <%
+                    if (session.getAttribute("totalCost") != null) {
+                %>
                 <div class="tm-cart-bottomarea">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <div class="tm-buttongroup">
-                                <a href="#" class="tm-button">Continue Shopping</a>
-                                <a href="#" class="tm-button">Update Cart</a>
-                            </div>
                             <form action="#" class="tm-cart-coupon">
                                 <label for="coupon-field">Have a coupon code?</label>
                                 <input type="text" id="coupon-field" placeholder="Enter coupon code"
@@ -162,26 +157,21 @@
                                 <div class="table-responsive">
                                     <table class="table table-borderless">
                                         <tbody>
-                                        <tr class="tm-cart-pricebox-subtotal">
-                                            <td>Cart Subtotal</td>
-                                            <td>$175.00</td>
-                                        </tr>
-                                        <tr class="tm-cart-pricebox-shipping">
-                                            <td>(+) Shipping Charge</td>
-                                            <td>$15.00</td>
-                                        </tr>
                                         <tr class="tm-cart-pricebox-total">
                                             <td>Total</td>
-                                            <td>$190.00</td>
+                                            <td><%=session.getAttribute("totalCost")%></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="#" class="tm-button">Proceed To Checkout</a>
+                                <a href="/checkout" class="tm-button">Proceed To Checkout</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <%
+                    }
+                %>
                 <!--// Shopping Cart Content -->
 
             </div>
@@ -192,7 +182,7 @@
     <!--// Page Content -->
 
     <!-- Footer -->
-    <jsp:include page="fragment/footer.jsp" />
+    <jsp:include page="fragment/footer.jsp"/>
     <!--// Footer -->
 
     <button id="back-top-top"><i class="ion-arrow-up-c"></i></button>

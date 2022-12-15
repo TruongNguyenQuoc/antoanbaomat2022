@@ -35,10 +35,17 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = SecurityUtil.encoderStringToMD5(request.getParameter("password"));
         Account account = accountService.findByUserName(username, password);
+        String indexUrl = request.getRequestURL().toString() +".jsp";
+        String url = request.getHeader("referer");
         if (account != null) {
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            response.sendRedirect("home.jsp");
+
+            if (indexUrl.equals(url)) {
+                response.sendRedirect("/home");
+            } else {
+                response.sendRedirect(url);
+            }
         } else {
             response.sendRedirect("login.jsp");
         }

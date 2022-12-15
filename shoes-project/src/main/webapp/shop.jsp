@@ -26,23 +26,6 @@
 </head>
 
 <body>
-
-<!-- Preloader -->
-<div class="tm-preloader">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="tm-preloader-logo">
-                    <img src="resources/assets/images/logo.png" alt="logo">
-                </div>
-                <span class="tm-preloader-progress"></span>
-            </div>
-        </div>
-    </div>
-    <button class="tm-button tm-button-small">Cancel Preloader</button>
-</div>
-<!--// Preloader -->
-
 <!-- Wrapper -->
 <div id="wrapper" class="wrapper">
 

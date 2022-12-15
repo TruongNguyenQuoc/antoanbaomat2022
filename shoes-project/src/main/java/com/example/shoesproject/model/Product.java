@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Product {
+public class Product implements Comparable<Product>{
 
     private long id;
     private String name;
@@ -15,11 +15,12 @@ public class Product {
     private double price;
     private int discount;
     private boolean status;
+    private long categoryId;
 
     public Product() {
     }
 
-    public Product(long id, String name, String description, String detail, String avatar, double price, int discount, boolean status) {
+    public Product(long id, String name, String description, String detail, String avatar, double price, int discount, boolean status, long categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,5 +29,11 @@ public class Product {
         this.price = price;
         this.discount = discount;
         this.status = status;
+        this.categoryId = categoryId;
+    }
+
+    @Override
+    public int compareTo(Product p) {
+        return (int) (this.id - p.id);
     }
 }

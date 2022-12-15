@@ -61,9 +61,9 @@
         },
 
         /* Nice Select */
-        niceSelectActive: function () {
-            $('select').niceSelect();
-        },
+        // niceSelectActive: function () {
+        //     $('select').niceSelect();
+        // },
 
 
         /* Countdown Activation */
@@ -654,7 +654,7 @@
             surose.headerOptionsDropdown();
             surose.databgImage();
             surose.meanmenuActivation();
-            surose.niceSelectActive();
+            // surose.niceSelectActive();
             surose.countdownActivation();
             surose.sliderActivations.init();
             surose.fancyboxSlick();
