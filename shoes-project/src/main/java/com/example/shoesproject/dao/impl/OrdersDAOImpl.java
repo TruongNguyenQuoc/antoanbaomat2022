@@ -1,9 +1,8 @@
 package com.example.shoesproject.dao.impl;
 
 import com.example.shoesproject.dao.ConnectDB;
-import com.example.shoesproject.dao.OrderDAO;
-import com.example.shoesproject.model.Account;
-import com.example.shoesproject.model.Order;
+import com.example.shoesproject.dao.OrdersDAO;
+import com.example.shoesproject.model.Orders;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
