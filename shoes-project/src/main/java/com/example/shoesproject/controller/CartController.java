@@ -4,6 +4,7 @@ import com.example.shoesproject.model.Cart;
 import com.example.shoesproject.model.Product;
 import com.example.shoesproject.service.ProductService;
 import com.example.shoesproject.service.impl.ProductServiceImpl;
+import com.example.shoesproject.util.NumberUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -84,7 +85,7 @@ public class CartController extends HttpServlet {
                     default:
                         break;
                 }
-                session.setAttribute("totalCost", cart.totalCost());
+                session.setAttribute("totalCost", NumberUtil.formatNumber(cart.totalCost()));
                 session.setAttribute("totalProduct", cart.totalProduct());
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(url);
                 requestDispatcher.forward(request, response);

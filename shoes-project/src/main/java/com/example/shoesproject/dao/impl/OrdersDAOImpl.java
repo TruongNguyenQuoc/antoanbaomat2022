@@ -11,14 +11,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAOImpl implements OrderDAO {
+public class OrdersDAOImpl implements OrdersDAO {
 
     PreparedStatement statement;
     ResultSet resultSet;
 
+   @Override
+    public Orders findById(long id) {
+        try {
+            String query = "SELECT * FROM orders WHERE id = ?";
+            statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+
+            Orders orders = null;
+
+            while (resultSet.next()) {
+                orders = new Orders(resultSet.getLong("id"),
+                        resultSet.getLong("account_id"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("address"),
+                        resultSet.getString("progress"),
+                        resultSet.getString("shipping"),
+                        resultSet.getTimestamp("create_at"),
+                        resultSet.getInt("total_cost"),
+                        resultSet.getBoolean("status"));
+            }
+
+            return orders;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
-    public List<Order> findByAccountId(long accountId) {
-        List<Order> result = new ArrayList<>();
+    public List<Orders> findByAccountId(long accountId) {
+        List<Orders> result = new ArrayList<>();
         try {
             String query = "SELECT * FROM orders WHERE account_id = ?";
             statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
@@ -26,16 +54,17 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Order order = new Order(resultSet.getLong("id"),
+                Orders orders = new Orders(resultSet.getLong("id"),
                                     resultSet.getLong("account_id"),
+                                    resultSet.getString("phone"),
                                     resultSet.getString("address"),
                                     resultSet.getString("progress"),
                                     resultSet.getString("shipping"),
-                                    resultSet.getTimestamp("createAt"),
-                                    resultSet.getInt("totalCost"),
+                                    resultSet.getTimestamp("create_at"),
+                                    resultSet.getInt("total_cost"),
                                     resultSet.getBoolean("status"));
 
-                result.add(order);
+                result.add(orders);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,24 +73,33 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order save(Order order) {
+    public long save(Orders orders) {
         try {
             String query = "INSERT INTO orders (account_id, address, progress, shipping, create_at, total_cost, status) " +
                     " values(?, ?, ?, ?, ?, ?, ?)";
-            statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
-            statement.setLong(1, order.getAccountId());
-            statement.setString(2, order.getAddress());
-            statement.setString(3, order.getProgress());
-            statement.setString(4, order.getShipping());
-            statement.setTimestamp(5, order.getCreateAt());
-            statement.setDouble(6, order.getTotalCost());
-            statement.setBoolean(7, order.isStatus());
-
+            statement = ConnectDB.getInstance().getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setLong(1, orders.getAccountId());
+            statement.setString(2, orders.getAddress());
+            statement.setString(3, orders.getProgress());
+            statement.setString(4, orders.getShipping());
+            statement.setTimestamp(5, orders.getCreateAt());
+            statement.setDouble(6, orders.getTotalCost());
+            statement.setBoolean(7, orders.isStatus());
             statement.executeUpdate();
 
-            return order;
+            ResultSet rs = statement.getGeneratedKeys();
+            try {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+                rs.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+         return 0;
     }
 }

@@ -3,7 +3,7 @@
 <%@ page import="java.util.TreeMap" %>
 <%@ page import="java.util.Map" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="fragment/taglib.jsp"/>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -68,7 +68,7 @@
     <main class="page-content">
 
         <!-- Shopping Cart Area -->
-        <div class="tm-section shopping-cart-area bg-white tm-padding-section">
+        <div class="tm-section shopping-cart-area bg-white tm-padding-section" style="padding-bottom: 20px;padding-top: 20px;">
             <div class="container">
                 <!-- Shopping Cart Table -->
                 <div class="tm-cart-table table-responsive">
@@ -88,36 +88,35 @@
                             if (session.getAttribute("totalCost") != null) {
                         %>
                             <%
-                                for (Map.Entry<Product, Integer> ds : list.entrySet()) {
+                                for (Map.Entry<Product, Integer> item : list.entrySet()) {
                             %>
                             <tr>
                                 <td>
-                                    <a href="detail?productId=?<%=ds.getKey().getId()%>" class="tm-cart-productimage">
+                                    <a href="detail?productId=?<%=item.getKey().getId()%>" class="tm-cart-productimage">
                                         <img src="resources/assets/images/products/product-image-1-thumb.jpg"
                                              alt="product image">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="detail?productId=?<%=ds.getKey().getId()%>" class="tm-cart-productname">
-                                        <%=ds.getKey().getName()%>
+                                    <a href="detail?productId=?<%=item.getKey().getId()%>" class="tm-cart-productname">
+                                        <%=item.getKey().getName()%>
                                     </a>
                                 </td>
-                                <td class="tm-cart-price"><%=ds.getKey().getPrice()%>
-                                </td>
+                                <td class="tm-cart-price"><%=item.getKey().formatNumber()%> VNĐ</td>
                                 <td>
                                     <div style="position: relative; display: inline-block; width: 80px;">
-                                        <input type="text" value="<%=ds.getValue()%>">
+                                        <input type="text" readonly value="<%=item.getValue()%>">
                                         <a class="decrement-button tm-quantitybox-button"
-                                           href="cart?command=sub&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}">-</a>
+                                           href="cart?command=sub&productId=<%=item.getKey().getId()%>&cartId=${System.currentTimeMillis()}">-</a>
                                         <a class="increment-button tm-quantitybox-button"
-                                           href="cart?command=plus&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}">+</a>
+                                           href="cart?command=plus&productId=<%=item.getKey().getId()%>&cartId=${System.currentTimeMillis()}">+</a>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="tm-cart-totalprice"><%=ds.getKey().getPrice() * ds.getValue()%></span>
+                                    <span class="tm-cart-totalprice"><%=item.getKey().formatNumber(item.getKey().getPrice() * item.getValue())%> VNĐ</span>
                                 </td>
                                 <td>
-                                    <a href="cart?command=remove&productId=<%=ds.getKey().getId()%>&cartId=${System.currentTimeMillis()}" class="tm-cart-removeproduct"><i class="ion-close"></i></a>
+                                    <a href="cart?command=remove&productId=<%=item.getKey().getId()%>&cartId=${System.currentTimeMillis()}" class="tm-cart-removeproduct"><i class="ion-close"></i></a>
                                 </td>
                             </tr>
                             <%
@@ -159,12 +158,12 @@
                                         <tbody>
                                         <tr class="tm-cart-pricebox-total">
                                             <td>Total</td>
-                                            <td><%=session.getAttribute("totalCost")%></td>
+                                            <td><%=session.getAttribute("totalCost")%> VNĐ</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="/checkout" class="tm-button">Proceed To Checkout</a>
+                                <a href="/checkout" class="tm-button">Checkout</a>
                             </div>
                         </div>
                     </div>

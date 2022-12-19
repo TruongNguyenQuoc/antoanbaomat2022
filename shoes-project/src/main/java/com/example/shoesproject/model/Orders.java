@@ -7,10 +7,11 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class Order {
+public class Orders {
 
     private long id;
     private long accountId;
+    private String phone;
     private String address;
     private String progress;
     private String shipping;
@@ -18,15 +19,16 @@ public class Order {
     private double totalCost;
     private boolean status;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(long id, long accountId, String address, String progress, String  shipping, Timestamp createAt, double totalCost, boolean status) {
+    public Orders(long id, long accountId, String phone, String address, String progress, String shipping, Timestamp createAt, double totalCost, boolean status) {
         this.id = id;
         this.accountId = accountId;
+        this.phone = phone;
         this.address = address;
         this.progress = progress;
-        this.shipping =  shipping;
+        this.shipping = shipping;
         this.createAt = createAt;
         this.totalCost = totalCost;
         this.status = status;

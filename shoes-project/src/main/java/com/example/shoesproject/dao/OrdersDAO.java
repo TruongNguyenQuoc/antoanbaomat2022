@@ -1,13 +1,15 @@
 package com.example.shoesproject.dao;
 
-import com.example.shoesproject.model.Order;
+import com.example.shoesproject.model.Orders;
 
 import java.util.List;
 
-public interface OrderDAO {
+public interface OrdersDAO {
 
-    List<Order> findByAccountId(long accountId);
+    Orders findById(long id);
 
-    Order save(Order order);
+    List<Orders> findByAccountId(long accountId);
+
+    long save(Orders orders);
 
 }

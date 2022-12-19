@@ -3,6 +3,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
+
+<%
+    Account account = null;
+    if (session.getAttribute("account") != null) {
+        account = (Account) session.getAttribute("account");
+    }
+%>
+
 <div class="tm-header tm-header-sticky">
     <!-- Header Top Area -->
     <div class="tm-header-toparea bg-black">
@@ -18,7 +26,21 @@
                 <div class="col-lg-4 col-12">
                     <div class="tm-header-options">
                         <div class="tm-dropdown tm-header-links">
-                            <button>My Account</button>
+                            <%
+                                if (session.getAttribute("account") == null) {
+                            %>
+                                <button>My Account</button>
+                            <%
+                                }
+                            %>
+                            <%
+                                if (session.getAttribute("account") != null) {
+                            %>
+                                <button><%=account.getFullName()%></button>
+                            <%
+                                }
+                            %>
+
                             <ul>
                                 <li><a href="/profile">My Account</a></li>
                                 <%
@@ -28,7 +50,7 @@
                                 <%
                                     }
                                 %>
-                                <li><a href="/order">Shopping Cart</a></li>
+                                <li><a href="/orders">Shopping Cart</a></li>
                                 <li><a href="/checkout">Checkout</a></li>
                                 <%
                                     if (session.getAttribute("account") != null) {
@@ -51,30 +73,30 @@
         <div class="container">
             <div class="tm-mobilenav"></div>
             <div class="row align-items-center">
-                <div class="col-lg-3 col-6 order-1 order-lg-1">
+                <div class="col-lg-3 col-6 orders-1 orders-lg-1">
                     <a href="index.html" class="tm-header-logo">
                         <img src="resources/assets/images/logo.png" alt="surose">
                     </a>
                 </div>
-                <div class="col-lg-6 col-12 order-3 order-lg-2">
+                <div class="col-lg-6 col-12 orders-3 orders-lg-2">
                     <form class="tm-header-search">
                         <input type="text" placeholder="Search product...">
                         <button><i class="ion-android-search"></i></button>
                     </form>
                 </div>
-                <div class="col-lg-3 col-6 order-2 order-lg-3">
+                <div class="col-lg-3 col-6 orders-2 orders-lg-3">
                     <ul class="tm-header-icons">
                         <%
                             if (session.getAttribute("totalProduct") == null) {
                         %>
-                        <li><a href="order"><i class="ion-bag"></i><span>0</span></a></li>
+                        <li><a href="orders"><i class="ion-bag"></i><span>0</span></a></li>
                         <%
                             }
                         %>
                         <%
                             if (session.getAttribute("totalProduct") != null) {
                         %>
-                        <li><a href="order"><i
+                        <li><a href="orders"><i
                                 class="ion-bag"></i><span><%=session.getAttribute("totalProduct")%></span></a></li>
                         <%
                             }

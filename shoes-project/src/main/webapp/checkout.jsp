@@ -3,7 +3,8 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="com.example.shoesproject.model.Product" %>
 <%@ page import="java.util.TreeMap" %>
-<jsp:include page="fragment/taglib.jsp" />
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -67,9 +68,9 @@
     <main class="page-content">
 
         <!-- Checkout Area -->
-        <div class="tm-section tm-checkout-area bg-white tm-padding-section">
+        <div class="tm-section tm-checkout-area bg-white tm-padding-section" style="padding-bottom: 20px;padding-top: 20px;">
             <div class="container">
-                <form action="checkout" method="POST" enctype="multipart/form-data" class="tm-form tm-checkout-form">
+                <form action="checkout" method="POST" enctype="multipart/form-data" class="tm-form tm-checkout-form was-validated">
                     <div class="row">
                         <div class="col-lg-6">
                             <h4 class="small-title">BILLING INFORMATION</h4>
@@ -81,19 +82,19 @@
                                         <label for="billingform-firstname">Full Name*</label>
                                         <input type="text" id="billingform-firstname" name="fullName" value="<%=account.getFullName()%>">
                                     </div>
-                                    <div class="tm-form-field">
+                                    <div class="tm-form-field tm-form-fieldhalf">
                                         <label for="billingform-email">Email</label>
                                         <input type="email" id="billingform-email" name="email" value="<%=account.getEmail()%>">
                                     </div>
-                                    <div class="tm-form-field">
+                                    <div class="tm-form-field tm-form-fieldhalf">
                                         <label for="billingform-phone">Phone</label>
                                         <input type="text" id="billingform-phone" name="phone" value="<%=account.getPhone()%>">
                                     </div>
-                                    <div class="tm-form-field">
+                                    <div class="tm-form-field tm-form-fieldhalf">
                                         <label for="billingform-address">Address</label>
                                         <input type="text" id="billingform-address" name="address" value="<%=account.getAddress()%>">
                                     </div>
-                                    <div class="tm-form-field">
+                                    <div class="tm-form-field tm-form-fieldhalf">
                                         <label for="billingform-shipping">Shipping</label>
                                         <select name="shipping" id="billingform-shipping">
                                             <option value="Payment on delivery">Payment on delivery</option>
@@ -102,8 +103,11 @@
                                     </div>
                                     <div class="tm-form-field">
                                         <label for="billingform-key">Private Key</label>
-                                        <input type="file" id="billingform-key" name="fileKey">
-                                        <p class="text-danger"><%=key_err%></p>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="fileKey" id="billingform-key" required>
+                                            <label class="custom-file-label" for="billingform-key">Choose Private Key...</label>
+                                            <p class="invalid-feedback"><%=key_err%></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -125,26 +129,22 @@
                                             %>
                                                 <tr>
                                                     <td><%=item.getKey().getName() + " * " + item.getValue()%></td>
-                                                    <td><%=item.getKey().getPrice() * item.getValue()%></td>
+                                                    <td><%=item.getKey().formatNumber(item.getKey().getPrice() * item.getValue())%> VNĐ</td>
                                                 </tr>
                                             <%
                                                 }
                                             %>
                                         </tbody>
                                         <tfoot>
-                                             <td><%=session.getAttribute("totalCost")%></td>
+                                            <tr class="tm-checkout-total">
+                                                <td>Total</td>
+                                                <td><%=session.getAttribute("totalCost")%> VNĐ</td>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-
                                 <div class="tm-checkout-submit">
                                     <div class="tm-form-inner">
-                                        <div class="tm-form-field">
-                                            <input type="checkbox" name="checkout-read-terms"
-                                                   id="checkout-read-terms">
-                                            <label for="checkout-read-terms">I have read and agree to the website
-                                                terms and conditions</label>
-                                        </div>
                                         <div class="tm-form-field">
                                             <button type="submit" class="tm-button ml-auto">Place Order</button>
                                         </div>

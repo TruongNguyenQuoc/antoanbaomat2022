@@ -10,18 +10,17 @@ import com.example.shoesproject.service.ProductService;
 import com.example.shoesproject.service.impl.OrderDetailServiceImpl;
 import com.example.shoesproject.service.impl.OrderServiceImpl;
 import com.example.shoesproject.service.impl.ProductServiceImpl;
-import com.google.protobuf.MapEntry;
+import com.example.shoesproject.util.NumberUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-@WebServlet(name = "detail", value = "/detail")
-public class DetailController extends HttpServlet {
+@WebServlet(name = "order-detail", value = "/order-detail")
+public class OrderDetailController extends HttpServlet {
 
     private OrderService orderService = new OrderServiceImpl();
 
@@ -49,7 +48,7 @@ public class DetailController extends HttpServlet {
 
             request.setAttribute("orders", orders);
             request.setAttribute("list", list);
-            request.setAttribute("totalCost", orders.getTotalCost());
+            request.setAttribute("totalCost", NumberUtil.formatNumber(orders.getTotalCost()));
             request.getRequestDispatcher("order-detail.jsp").forward(request, response);
         }
     }
