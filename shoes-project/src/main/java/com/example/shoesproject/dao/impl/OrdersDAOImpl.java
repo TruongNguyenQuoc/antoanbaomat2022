@@ -1,27 +1,22 @@
 package com.example.shoesproject.dao.impl;
 
 import com.example.shoesproject.dao.ConnectDB;
-<<<<<<< Updated upstream:shoes-project/src/main/java/com/example/shoesproject/dao/impl/OrderDAOImpl.java
 import com.example.shoesproject.dao.OrderDAO;
+import com.example.shoesproject.model.Account;
 import com.example.shoesproject.model.Order;
-=======
-import com.example.shoesproject.dao.OrdersDAO;
-import com.example.shoesproject.model.Orders;
->>>>>>> Stashed changes:shoes-project/src/main/java/com/example/shoesproject/dao/impl/OrdersDAOImpl.java
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrdersDAOImpl implements OrdersDAO {
 
     PreparedStatement statement;
     ResultSet resultSet;
 
-    @Override
-<<<<<<< Updated upstream:shoes-project/src/main/java/com/example/shoesproject/dao/impl/OrderDAOImpl.java
-    public Order save(Order order) {
-=======
+   @Override
     public Orders findById(long id) {
         try {
             String query = "SELECT * FROM orders WHERE id = ?";
@@ -79,7 +74,6 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public long save(Orders orders) {
->>>>>>> Stashed changes:shoes-project/src/main/java/com/example/shoesproject/dao/impl/OrdersDAOImpl.java
         try {
             String query = "INSERT INTO orders (account_id, address, progress, shipping, create_at, total_cost, status) " +
                     " values(?, ?, ?, ?, ?, ?, ?)";

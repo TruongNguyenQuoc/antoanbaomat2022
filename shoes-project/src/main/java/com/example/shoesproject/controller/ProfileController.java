@@ -1,8 +1,11 @@
 package com.example.shoesproject.controller;
 
 import com.example.shoesproject.model.Account;
+import com.example.shoesproject.model.Orders;
 import com.example.shoesproject.service.AccountService;
+import com.example.shoesproject.service.OrderService;
 import com.example.shoesproject.service.impl.AccountServiceImpl;
+import com.example.shoesproject.service.impl.OrderServiceImpl;
 import com.example.shoesproject.util.SignatureUser;
 
 import javax.servlet.ServletException;
@@ -14,11 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "ProfileController", value = "/profile")
 public class ProfileController extends HttpServlet {
 
     private AccountService accountService = new AccountServiceImpl();
+    private OrderService orderService = new OrderServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,18 +37,21 @@ public class ProfileController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             if (fileName != null && account.getPublicKey().equals("")) {
-                account.setPublicKey(signatureUser.convertPublicKey(signatureUser.getPublicKey().getEncoded()));
-                accountService.update(account);
-
                 String path = getServletContext().getRealPath("/" + "file" + File.separator + fileName);
                 response.setContentType("APPLICATION/OCTET-STREAM");
                 response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+"\"");
 
 //                FileInputStream inputStream = new FileInputStream(path);
-                out.write(account.getPublicKey());
+                out.write(signatureUser.convertPublicKey(signatureUser.getPrivateKey().getEncoded()));
 //                inputStream.close();
                 out.close();
+
+                account.setPublicKey(signatureUser.convertPublicKey(signatureUser.getPublicKey().getEncoded()));
+                accountService.update(account);
             }
+
+            List<Orders> orders = orderService.findByAccountId(account.getId());
+            request.setAttribute("order", orders);
             request.getRequestDispatcher("profile.jsp").forward(request, response);
         }
     }
