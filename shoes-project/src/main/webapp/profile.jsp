@@ -1,5 +1,7 @@
 <%@ page import="com.example.shoesproject.model.Account" %>
-<jsp:include page="fragment/taglib.jsp" />
+<%@ page import="com.example.shoesproject.util.NumberUtil" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -75,6 +77,11 @@
                                role="tab" aria-controls="account-address" aria-selected="false">Change Password</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="account-change-key-tab" data-toggle="tab"
+                               href="#account-change-key" role="tab" aria-controls="account-change-key"
+                               aria-selected="false">Change Key</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="account-acdetails-tab" data-toggle="tab"
                                href="#account-acdetails" role="tab" aria-controls="account-acdetails"
                                aria-selected="false">Account Details</a>
@@ -119,22 +126,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>#12345</td>
-                                            <td>30 December 2018</td>
-                                            <td>On Hold</td>
-                                            <td>$132.00 for 2 items</td>
-                                            <td><a href="#" class="tm-button tm-button-small">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#12346</td>
-                                            <td>30 December 2018</td>
-                                            <td>On Hold</td>
-                                            <td>$220.00 for 3 items</td>
-                                            <td><a href="#" class="tm-button tm-button-small">View</a>
-                                            </td>
-                                        </tr>
+                                            <c:forEach var="item" items="${order}">
+                                                <tr>
+                                                    <td>${item.id}</td>
+                                                    <td>${item.createAt}</td>
+                                                    <td>${item.progress}</td>
+                                                    <td>${NumberUtil.formatNumber(item.totalCost)} VND</td>
+                                                    <td><a href="/order-detail?orderId=${item.id}" class="tm-button tm-button-small">View</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -167,6 +168,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="account-change-key" role="tabpanel"
+                             aria-labelledby="account-address-tab">
+                            <div class="tm-myaccount-address">
+                                <div class="row">
+                                    <form class="tm-form tm-form-bordered was-validated" enctype="multipart/form-data" action="changePrivateKey" method="post" >
+                                        <div class="tm-form-inner">
+                                            <div class="tm-form-field">
+                                                <label for="billingform-key">Private Key</label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="fileKey" id="billingform-key" required>
+                                                    <label class="custom-file-label" for="billingform-key">Choose Private Key...</label>
+                                                    <p class="invalid-feedback">${key_err}</p>
+                                                </div>
+                                            </div>
+                                            <div class="tm-form-field">
+                                                <button type="submit" class="tm-button">Save Changes</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="tab-pane fade" id="account-acdetails" role="tabpanel"
                              aria-labelledby="account-acdetails-tab">
                             <div class="tm-myaccount-acdetails">
@@ -175,11 +198,11 @@
                                     <div class="tm-form-inner">
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-firstname">Full Name</label>
-                                            <input type="text" id="acdetails-firstname" value="<%=account.getFullName()%>">
+                                            <input type="text" id="acdetails-firstname" readonly value="<%=account.getFullName()%>">
                                         </div>
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-email">Email</label>
-                                            <input type="email" id="acdetails-email" value="<%=account.getEmail()%>">
+                                            <input type="email" id="acdetails-email" readonly value="<%=account.getEmail()%>">
                                         </div>
                                         <div class="tm-form-field tm-form-fieldhalf">
                                             <label for="acdetails-phone">Phone</label>

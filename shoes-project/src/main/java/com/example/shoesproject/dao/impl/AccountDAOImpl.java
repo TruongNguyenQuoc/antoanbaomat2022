@@ -19,7 +19,7 @@ public class AccountDAOImpl implements AccountDAO {
     public List<Account> findAll() {
         List<Account> result = new ArrayList<>();
         try {
-            String query = "SELECT * FROM account";
+            String query = "SELECT * FROM account WHERE status = 1";
             statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
             resultSet = statement.executeQuery();
 
@@ -47,7 +47,7 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public Account findById(long id) {
         try {
-            String query = "SELECT * FROM account WHERE id = ?";
+            String query = "SELECT * FROM account WHERE id = ? AND status = 1";
             statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
@@ -77,7 +77,7 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public Account findByUserName(String userName) {
         try {
-            String query = "SELECT * FROM account WHERE username = ?";
+            String query = "SELECT * FROM account WHERE username = ? AND status = 1";
             statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
             statement.setString(1, userName);
             resultSet = statement.executeQuery();
@@ -107,7 +107,7 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public Account findByUserName(String userName, String password) {
         try {
-            String query = "SELECT * FROM account WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM account WHERE username = ? AND password = ? AND status = 1";
             statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
             statement.setString(1, userName);
             statement.setString(2, password);
