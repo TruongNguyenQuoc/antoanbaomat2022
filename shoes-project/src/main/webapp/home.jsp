@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.shoesproject.model.Cart" %>
-<jsp:include page="fragment/taglib.jsp" />
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -108,7 +108,7 @@
                                 </span>
                             <div class="tm-feature-content">
                                 <h6>Free Shipping</h6>
-                                <p>We provide free shipping for all order over $200.00</p>
+                                <p>We provide free shipping for all orders over $200.00</p>
                             </div>
                         </div>
                     </div>
@@ -170,16 +170,26 @@
                                         <img src="resources/assets/images/products/product-image-5.jpg" alt="product image">
                                     </div>
                                     <ul class="tm-product-actions">
-                                        <li><a href="cart?command=insert&productId=${item.id}&cartId=${System.currentTimeMillis()}"><i class="ion-android-cart"></i>Add to cart</a></li>
+                                        <li><a href="cart?command=insert&productId=${item.id}&cartId=${System.currentTimeMillis()}"><i class="ion-android-cart" style="margin-right: 10px"></i>Add to cart</a></li>
                                     </ul>
+                                    <c:if test="${item.discount > 0}">
+                                        <div class="tm-product-badges">
+                                            <span class="tm-product-badges-new" style="border-radius: 50%; height: 35px;padding: 5px;">${item.discount}%</span>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <div class="tm-product-bottomside">
                                     <h6 class="tm-product-title"><a href="detail?productId=${item.id}">${item.name}</a></h6>
-                                    <span class="tm-product-price">${item.price}</span>
+                                    <div>
+                                        <c:if test="${item.discount > 0}">
+                                            <span><del class="tm-product-content" style="display: inline-block; margin-right: 30px">${item.price} VNĐ</del></span>
+                                        </c:if>
+                                        <span class="tm-product-price float-right" style="margin: 0;font-size: 18px;font-weight: 800;">${item.formatNumber()} VNĐ</span>
+                                    </div>
                                     <div class="tm-product-content">
                                         <p>${item.description}</p>
                                         <ul class="tm-product-actions">
-                                            <li><a href="cart?command=insert&productId=${item.id}&cartId=${System.currentTimeMillis()}"><i class="ion-android-cart"></i> Add to cart</a></li>
+                                            <li><a href="cart?command=insert&productId=${item.id}&cartId=${System.currentTimeMillis()}"><i class="ion-android-cart" style="margin-right: 10px"></i> Add to cart</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -631,7 +641,7 @@
         <div class="tm-section tm-offer-area tm-padding-section bg-grey">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-12 order-2 order-lg-1">
+                    <div class="col-lg-6 col-12 orders-2 orders-lg-1">
                         <div class="tm-offer-content">
                             <h6>Super deal of the Month</h6>
                             <h1>Brand ear ring on <span>$250</span> only</h1>
@@ -639,7 +649,7 @@
                             <a href="product-details.html" class="tm-button">Shop now</a>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12 order-1 order-lg-2">
+                    <div class="col-lg-6 col-12 orders-1 orders-lg-2">
                         <div class="tm-offer-image">
                             <img class="tm-offer" src="resources/assets/images/offer-image-1.png" alt="offer image">
                         </div>

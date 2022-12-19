@@ -1,12 +1,15 @@
 package com.example.shoesproject.model;
 
+import com.example.shoesproject.util.NumberUtil;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 @Getter
 @Setter
 public class Product implements Comparable<Product>{
-
     private long id;
     private String name;
     private String description;
@@ -35,5 +38,13 @@ public class Product implements Comparable<Product>{
     @Override
     public int compareTo(Product p) {
         return (int) (this.id - p.id);
+    }
+
+    public String formatNumber() {
+        return NumberUtil.formatNumber(this.price, this.discount);
+    }
+
+    public String formatNumber(double price) {
+       return NumberUtil.formatNumber(price);
     }
 }

@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class SignatureUser {
@@ -17,34 +20,13 @@ public class SignatureUser {
         try {
             KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("DSA");
             SecureRandom secureRandom = new SecureRandom();
-            keyGenerator.initialize(2048, secureRandom);
+            keyGenerator.initialize(1024, secureRandom);
             KeyPair keyPair = keyGenerator.generateKeyPair();
             this.publicKey = keyPair.getPublic();
             this.privateKey = keyPair.getPrivate();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static boolean validateMessageSignature(PublicKey publicKey, byte[] message, byte[] signature) throws
-            NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-        Signature clientSig = Signature.getInstance("DSA");
-        clientSig.initVerify(publicKey);
-        clientSig.update(message);
-        if (clientSig.verify(signature)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static byte[] signMessage(byte[] message,PrivateKey privateKey) throws NoSuchAlgorithmException,
-            InvalidKeyException, SignatureException {
-        Signature sig = Signature.getInstance("DSA");
-        sig.initSign(privateKey);
-        sig.update(message);
-        byte[] sign= sig.sign();
-        return sign;
     }
 
     public PublicKey getPublicKey() {
@@ -78,17 +60,65 @@ public class SignatureUser {
             while ((ch = inputStream.read()) != -1)
                 stringBuilder.append((char) ch);
 
-            return stringBuilder.toString().equals(publicKey);
+            KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+            PrivateKey prvKey = convertStringToPrivateKey(stringBuilder.toString(), keyFactory);
+            PublicKey pubKey = convertStringToPubicKey(publicKey, keyFactory);
+
+            return validatorSignature(prvKey, pubKey);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
-                if (inputStream != null)
+                if (inputStream != null) {
                     inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return false;
     }
+
+    private boolean validatorSignature(PrivateKey privateKey, PublicKey publicKey) {
+        Signature signature, clientSignature;
+        String message = "check your signature";
+        try {
+            signature = Signature.getInstance("DSA");
+            clientSignature = Signature.getInstance("DSA");
+
+            // signature
+            signature.initSign(privateKey);
+            signature.update(message.getBytes());
+            byte[] sign = signature.sign();
+            // client signature
+            clientSignature.initVerify(publicKey);
+            clientSignature.update(message.getBytes());
+
+            return clientSignature.verify(sign);
+        } catch (NoSuchAlgorithmException | SignatureException | InvalidKeyException e) {
+           return false;
+        }
+    }
+
+    public PublicKey convertStringToPubicKey(String publicKey, KeyFactory keyFactory) {
+        X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKey));
+        try {
+            return keyFactory.generatePublic(keySpecX509);
+        } catch (InvalidKeySpecException e) {
+            return null;
+        }
+    }
+
+    public PrivateKey convertStringToPrivateKey(String privateKey, KeyFactory keyFactory) {
+        PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKey));
+
+        try {
+            return keyFactory.generatePrivate(keySpecPKCS8);
+        } catch (InvalidKeySpecException e) {
+            return null;
+        }
+    }
+
 }

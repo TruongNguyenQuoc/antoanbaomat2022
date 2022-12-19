@@ -47,6 +47,7 @@ public class CheckoutController extends HttpServlet {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
         String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
         String shipping = request.getParameter("shipping");
 
         String uploadFolder = request.getServletContext().getRealPath("/uploads");
@@ -64,20 +65,21 @@ public class CheckoutController extends HttpServlet {
                     Cart cart = (Cart) session.getAttribute("cart");
                     Date date = new Date();
 
-                    Order order = new Order();
-                    order.setAccountId(account.getId());
-                    order.setAddress(address);
-                    order.setProgress("PENDING");
-                    order.setShipping(shipping);
-                    order.setCreateAt(new Timestamp(date.getTime()));
-                    order.setTotalCost(cart.totalCost());
-                    order.setStatus(true);
-                    orderService.save(order);
+                    Orders orders = new Orders();
+                    orders.setAccountId(account.getId());
+                    orders.setPhone(phone);
+                    orders.setAddress(address);
+                    orders.setProgress("PENDING");
+                    orders.setShipping(shipping);
+                    orders.setCreateAt(new Timestamp(date.getTime()));
+                    orders.setTotalCost(cart.totalCost());
+                    orders.setStatus(true);
+                    long ordersId = orderService.save(orders);
 
                     TreeMap<Product, Integer> list = cart.getList();
                     for (Map.Entry<Product, Integer> item: list.entrySet()) {
                         OrderDetail orderDetail = new OrderDetail();
-                        orderDetail.setOrderId(order.getId());
+                        orderDetail.setOrderId(ordersId);
                         orderDetail.setProductId(item.getKey().getId());
                         orderDetail.setPrice(item.getKey().getPrice());
                         orderDetail.setDiscount(item.getKey().getDiscount());
