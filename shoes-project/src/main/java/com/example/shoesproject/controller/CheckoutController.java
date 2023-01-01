@@ -12,6 +12,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -91,7 +92,8 @@ public class CheckoutController extends HttpServlet {
                     session.removeAttribute("cart");
                     session.removeAttribute("totalCost");
                     session.removeAttribute("totalProduct");
-                    response.sendRedirect("/profile");
+                    session.setAttribute("success", "Order Success");
+                    response.sendRedirect("/validator-order");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

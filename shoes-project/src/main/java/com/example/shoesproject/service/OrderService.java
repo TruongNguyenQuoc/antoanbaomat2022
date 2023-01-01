@@ -11,4 +11,6 @@ public interface OrderService {
     List<Orders> findByAccountId(long accountId);
 
     long save(Orders orders);
+
+    Orders findNewOrderByAccountId(long accountId);
 }

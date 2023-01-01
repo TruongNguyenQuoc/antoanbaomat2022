@@ -12,4 +12,6 @@ public interface OrdersDAO {
 
     long save(Orders orders);
 
+    Orders findNewOrderByAccountId(long accountId);
+
 }

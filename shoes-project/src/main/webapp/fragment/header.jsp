@@ -74,7 +74,7 @@
             <div class="tm-mobilenav"></div>
             <div class="row align-items-center">
                 <div class="col-lg-3 col-6 orders-1 orders-lg-1">
-                    <a href="index.html" class="tm-header-logo">
+                    <a href="/home" class="tm-header-logo">
                         <img src="resources/assets/images/logo.png" alt="surose">
                     </a>
                 </div>

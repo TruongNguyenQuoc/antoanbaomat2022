@@ -57,7 +57,7 @@ public class Cart {
     public int totalCost() {
         int total = 0;
         for (Map.Entry<Product, Integer> ds: list.entrySet()) {
-            total += (int) (ds.getKey().getPrice() * ds.getValue());
+            total += (int) (ds.getKey().priceDiscount() * ds.getValue());
         }
         return total;
     }

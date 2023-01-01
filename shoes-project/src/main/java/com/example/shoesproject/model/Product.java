@@ -47,4 +47,8 @@ public class Product implements Comparable<Product>{
     public String formatNumber(double price) {
        return NumberUtil.formatNumber(price);
     }
+
+    public double priceDiscount(){
+        return this.price - (this.price * this.discount / 100);
+    }
 }

@@ -33,8 +33,12 @@
     <%
         Account account = (Account) session.getAttribute("account");
         String address_err = "";
+        String success = "";
         if (session.getAttribute("address_err") != null) {
             address_err = session.getAttribute("address_err").toString();
+        }
+        if (session.getAttribute("success") != null) {
+            success = session.getAttribute("success").toString();
         }
     %>
     <!-- Header -->
@@ -96,7 +100,24 @@
                         <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                              aria-labelledby="account-dashboard-tab">
                             <div class="tm-myaccount-dashboard">
-                                <p class="text-danger"><%=address_err%></p>
+                                <%
+                                    if (!address_err.equals("")) {
+                                %>
+                                <div class="alert alert-danger" role="alert">
+                                    <%=address_err%>
+                                </div>
+                                <%
+                                    }
+                                %>
+                                <%
+                                    if (!success.equals("")) {
+                                %>
+                                <div class="alert alert-success" role="alert">
+                                    <%=success%>
+                                </div>
+                                <%
+                                    }
+                                %>
                                 <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
                                         href="login?command=logout">Log
                                     out</a>)</p>

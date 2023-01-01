@@ -25,4 +25,9 @@ public class OrderServiceImpl implements OrderService {
     public long save(Orders orders) {
         return ordersDAO.save(orders);
     }
+
+    @Override
+    public Orders findNewOrderByAccountId(long accountId) {
+        return ordersDAO.findNewOrderByAccountId(accountId);
+    }
 }
