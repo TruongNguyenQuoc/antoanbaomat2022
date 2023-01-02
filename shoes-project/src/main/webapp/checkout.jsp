@@ -129,7 +129,7 @@
                                             %>
                                                 <tr>
                                                     <td><%=item.getKey().getName() + " * " + item.getValue()%></td>
-                                                    <td><%=item.getKey().formatNumber(item.getKey().getPrice() * item.getValue())%> VNĐ</td>
+                                                    <td><%=item.getKey().formatNumber(item.getKey().priceDiscount() * item.getValue())%> VNĐ</td>
                                                 </tr>
                                             <%
                                                 }

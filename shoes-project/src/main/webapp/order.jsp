@@ -113,7 +113,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="tm-cart-totalprice"><%=item.getKey().formatNumber(item.getKey().getPrice() * item.getValue())%> VNĐ</span>
+                                    <span class="tm-cart-totalprice"><%=item.getKey().formatNumber(item.getKey().priceDiscount() * item.getValue())%> VNĐ</span>
                                 </td>
                                 <td>
                                     <a href="cart?command=remove&productId=<%=item.getKey().getId()%>&cartId=${System.currentTimeMillis()}" class="tm-cart-removeproduct"><i class="ion-close"></i></a>
