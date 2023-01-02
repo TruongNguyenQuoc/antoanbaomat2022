@@ -15,6 +15,14 @@ public class NumberUtil {
         }
     }
 
+    public static Double doubleNumber(double price, int discount) {
+        try {
+            return price - (price * discount / 100);
+        } catch (Exception ex) {
+            return 0.0;
+        }
+    }
+
     public static String formatNumber(double price) {
         try {
             String result = df.format(price);

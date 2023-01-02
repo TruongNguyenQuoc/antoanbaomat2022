@@ -126,7 +126,7 @@
                                 <%
                                     if (account.getPublicKey().equals("")) {
                                 %>
-                                <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                    <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
                                 <%
                                     }
                                 %>
@@ -144,6 +144,7 @@
                                             <th class="tm-myaccount-orders-col-status">STATUS</th>
                                             <th class="tm-myaccount-orders-col-total">TOTAL</th>
                                             <th class="tm-myaccount-orders-col-view">VIEW</th>
+                                            <th class="tm-myaccount-orders-col-view"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -153,7 +154,11 @@
                                                     <td>${item.createAt}</td>
                                                     <td>${item.progress}</td>
                                                     <td>${NumberUtil.formatNumber(item.totalCost)} VND</td>
-                                                    <td><a href="/order-detail?orderId=${item.id}" class="tm-button tm-button-small">View</a>
+                                                    <td>
+                                                        <a href="/order-detail?orderId=${item.id}" class="tm-button tm-button-small">View</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/validator-order?orderId=${item.id}" target="_blank" class="tm-readmore tm-button-small">PDF</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

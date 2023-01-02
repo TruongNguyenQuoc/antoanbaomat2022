@@ -67,7 +67,6 @@
             <version>${itextpdf.version}</version>
             <type>pom</type>
         </dependency>
-
     </dependencies>
 
     <build>

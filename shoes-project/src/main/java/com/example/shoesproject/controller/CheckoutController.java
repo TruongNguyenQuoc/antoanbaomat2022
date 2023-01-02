@@ -5,13 +5,17 @@ import com.example.shoesproject.service.OrderDetailService;
 import com.example.shoesproject.service.OrderService;
 import com.example.shoesproject.service.impl.OrderDetailServiceImpl;
 import com.example.shoesproject.service.impl.OrderServiceImpl;
+import com.example.shoesproject.util.PDFUtil;
 import com.example.shoesproject.util.SignatureUser;
+import com.itextpdf.kernel.pdf.PdfWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -88,12 +92,13 @@ public class CheckoutController extends HttpServlet {
 
                         orderDetailService.save(orderDetail);
                     }
-
                     session.removeAttribute("cart");
                     session.removeAttribute("totalCost");
                     session.removeAttribute("totalProduct");
-                    session.setAttribute("success", "Order Success");
-                    response.sendRedirect("/validator-order");
+                    session.setAttribute("success", "Order Success! Please download file Order");
+
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
+                    requestDispatcher.forward(request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
