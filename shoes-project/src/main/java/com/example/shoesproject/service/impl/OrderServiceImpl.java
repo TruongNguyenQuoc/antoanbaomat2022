@@ -12,6 +12,11 @@ public class OrderServiceImpl implements OrderService {
     private OrdersDAO ordersDAO = new OrdersDAOImpl();
 
     @Override
+    public List<Orders> findAll() {
+        return ordersDAO.findAll();
+    }
+
+    @Override
     public Orders findById(long id) {
         return ordersDAO.findById(id);
     }

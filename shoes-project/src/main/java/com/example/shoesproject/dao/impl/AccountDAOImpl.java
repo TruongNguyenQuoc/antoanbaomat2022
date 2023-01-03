@@ -75,6 +75,36 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
+    public Account findByIds(long id) {
+        try {
+            String query = "SELECT * FROM account WHERE id = ?";
+            statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+
+            Account account = null;
+
+            while (resultSet.next()) {
+                account = new Account(
+                        resultSet.getLong("id"),
+                        resultSet.getString("fullName"),
+                        resultSet.getString("username"),
+                        resultSet.getString("password"),
+                        resultSet.getString("email"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("address"),
+                        resultSet.getString("public_key"),
+                        resultSet.getBoolean("status"),
+                        resultSet.getLong("role_id"));
+            }
+
+            return account;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Account findByUserName(String userName) {
         try {
             String query = "SELECT * FROM account WHERE username = ? AND status = 1";

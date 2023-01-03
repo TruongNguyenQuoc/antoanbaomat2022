@@ -15,7 +15,34 @@ public class OrdersDAOImpl implements OrdersDAO {
     PreparedStatement statement;
     ResultSet resultSet;
 
-   @Override
+    @Override
+    public List<Orders> findAll() {
+        List<Orders> result = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM orders";
+            statement = ConnectDB.getInstance().getConnection().prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Orders orders = new Orders(resultSet.getLong("id"),
+                        resultSet.getLong("account_id"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("address"),
+                        resultSet.getString("progress"),
+                        resultSet.getString("shipping"),
+                        resultSet.getTimestamp("create_at"),
+                        resultSet.getInt("total_cost"),
+                        resultSet.getBoolean("status"));
+
+                result.add(orders);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
     public Orders findById(long id) {
         try {
             String query = "SELECT * FROM orders WHERE id = ?";

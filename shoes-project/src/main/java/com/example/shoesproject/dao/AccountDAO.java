@@ -10,6 +10,8 @@ public interface AccountDAO {
 
     Account findById(long id);
 
+    Account findByIds(long id);
+
     Account findByUserName(String userName);
 
     Account findByUserName(String userName, String password);

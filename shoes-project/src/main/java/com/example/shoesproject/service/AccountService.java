@@ -10,6 +10,8 @@ public interface AccountService {
 
     Account findById(long id);
 
+    Account findByIds(long id);
+
     Account findByUserName(String username);
 
     Account findByUserName(String username, String password);
