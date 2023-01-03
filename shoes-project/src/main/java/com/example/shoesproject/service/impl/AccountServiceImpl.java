@@ -22,6 +22,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account findByIds(long id) {
+        return accountDAO.findByIds(id);
+    }
+
+    @Override
     public Account findByUserName(String username) {
         return accountDAO.findByUserName(username);
     }
