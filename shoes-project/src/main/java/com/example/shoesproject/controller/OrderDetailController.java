@@ -45,7 +45,7 @@ public class OrderDetailController extends HttpServlet {
                 Product product = productService.findById(orderDetail.getProductId());
                 list.put(product, orderDetail.getAmount());
             }
-
+            request.setAttribute("progress", orders.getProgress());
             request.setAttribute("orders", orders);
             request.setAttribute("list", list);
             request.setAttribute("totalCost", NumberUtil.formatNumber(orders.getTotalCost()));

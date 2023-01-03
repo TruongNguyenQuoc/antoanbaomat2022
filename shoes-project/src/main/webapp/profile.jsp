@@ -34,19 +34,24 @@
         Account account = (Account) session.getAttribute("account");
         String address_err = "";
         String success = "";
+        String key_err = "";
         if (session.getAttribute("address_err") != null) {
             address_err = session.getAttribute("address_err").toString();
         }
         if (session.getAttribute("success") != null) {
             success = session.getAttribute("success").toString();
         }
+        if (session.getAttribute("key_err") != null) {
+            key_err = session.getAttribute("key_err").toString();
+        }
+
     %>
     <!-- Header -->
     <jsp:include page="fragment/header.jsp" />
     <!--// Header -->
 
     <!-- Breadcrumb Area -->
-    <div class="tm-breadcrumb-area tm-padding-section bg-grey" data-bgimage="resources/assets/images/breadcrumb-bg.jpg">
+    <div class="tm-breadcrumb-area tm-padding-section bg-grey" data-bgimage="resources/assets/images/dominik.jpg">
         <div class="container">
             <div class="tm-breadcrumb">
                 <h2>My Account</h2>
@@ -66,6 +71,31 @@
         <div class="tm-section tm-my-account-area bg-white tm-padding-section">
             <div class="container">
                 <div class="tm-myaccount">
+                    <%
+                        if (!key_err.equals("")) {
+                    %>
+                        <div class="alert alert-warning" role="alert"> <%=key_err%> </div>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (!address_err.equals("")) {
+                    %>
+                        <div class="alert alert-danger" role="alert">
+                            <%=address_err%>
+                        </div>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (!success.equals("")) {
+                    %>
+                    <div class="alert alert-success" role="alert">
+                        <%=success%>
+                    </div>
+                    <%
+                        }
+                    %>
                     <ul class="nav tm-tabgroup" id="account" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="account-dashboard-tab" data-toggle="tab"
@@ -100,24 +130,6 @@
                         <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel"
                              aria-labelledby="account-dashboard-tab">
                             <div class="tm-myaccount-dashboard">
-                                <%
-                                    if (!address_err.equals("")) {
-                                %>
-                                <div class="alert alert-danger" role="alert">
-                                    <%=address_err%>
-                                </div>
-                                <%
-                                    }
-                                %>
-                                <%
-                                    if (!success.equals("")) {
-                                %>
-                                <div class="alert alert-success" role="alert">
-                                    <%=success%>
-                                </div>
-                                <%
-                                    }
-                                %>
                                 <p>Hello <b><%=account.getFullName()%></b> (not <b><%=account.getFullName()%></b>? <a
                                         href="login?command=logout">Log
                                     out</a>)</p>
@@ -126,7 +138,9 @@
                                 <%
                                     if (account.getPublicKey().equals("")) {
                                 %>
-                                    <a href="/profile?fileName=privateKey.txt">Download Public Key</a>
+                                    <div class="alert alert-warning" role="alert">
+                                        <a href="/profile?fileName=privateKey.txt" style="display: inline;" class="alert-link">Download Public Key</a>
+                                    </div>
                                 <%
                                     }
                                 %>
@@ -205,7 +219,6 @@
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" name="fileKey" id="billingform-key" required>
                                                     <label class="custom-file-label" for="billingform-key">Choose Private Key...</label>
-                                                    <p class="invalid-feedback">${key_err}</p>
                                                 </div>
                                             </div>
                                             <div class="tm-form-field">
