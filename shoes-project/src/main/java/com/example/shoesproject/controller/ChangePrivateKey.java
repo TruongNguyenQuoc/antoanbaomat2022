@@ -70,7 +70,7 @@ public class ChangePrivateKey extends HttpServlet {
             if (signatureUser.checkPrivateKey(partUpload, pathUpload, account.getPublicKey())) {
                 response.sendRedirect("/changePrivateKey?fileName=privateKey.txt");
             } else {
-                request.setAttribute("key_err", "Please check your private key");
+                session.setAttribute("key_err", "Please check your private key");
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
             }
         }

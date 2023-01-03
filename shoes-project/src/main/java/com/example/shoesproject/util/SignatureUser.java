@@ -25,7 +25,6 @@ public class SignatureUser {
             this.publicKey = keyPair.getPublic();
             this.privateKey = keyPair.getPrivate();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -65,10 +64,8 @@ public class SignatureUser {
             PublicKey pubKey = convertStringToPubicKey(publicKey, keyFactory);
 
             return validatorSignature(prvKey, pubKey);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | NoSuchAlgorithmException e) {
+            return false;
         } finally {
             try {
                 if (inputStream != null) {
@@ -78,7 +75,6 @@ public class SignatureUser {
                 e.printStackTrace();
             }
         }
-        return false;
     }
 
     private boolean validatorSignature(PrivateKey privateKey, PublicKey publicKey) {
